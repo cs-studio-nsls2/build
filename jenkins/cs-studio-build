@@ -21,6 +21,7 @@ pipeline {
                     git(url: "https://github.com/cs-studio-nsls2/build.git")
                  }
              }
+             sh "ls && pwd"
          }
          stage('maven-osgi-bundles'){
              steps{
