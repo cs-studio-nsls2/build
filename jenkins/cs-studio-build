@@ -15,12 +15,19 @@ pipeline {
                  sh 'mvn -version'
              }
          }
+         stage('setup-repo'){
+             steps{
+                 dir("repo"){
+                    git(url: "https://github.com/cs-studio-nsls2/build.git")
+                 }
+             }
+         }
          stage('maven-osgi-bundles'){
              steps{
                 dir("maven-osgi-bundles"){
                     git(url: "https://github.com/ControlSystemStudio/maven-osgi-bundles.git")
                 }
-                 sh "cd maven-osgi-bundles && mvn -DskipTests=true clean verify"
+                sh "cd maven-osgi-bundles && mvn -DskipTests=true clean verify"
              }
          }
          stage('cs-studio-thirdparty'){
