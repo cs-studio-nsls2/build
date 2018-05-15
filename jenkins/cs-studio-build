@@ -23,6 +23,14 @@ pipeline {
              }
              sh "ls && pwd"
          }
+         stage('diirt'){
+             steps{
+                dir("diirt"){
+                    git(url: "https://github.com/diirt/diirt.git")
+                }
+                sh "cd diirt && mvn -DskipTests=true clean verify"
+             }
+         }
          stage('maven-osgi-bundles'){
              steps{
                 dir("maven-osgi-bundles"){
@@ -37,14 +45,6 @@ pipeline {
                     git(url: "https://github.com/ControlSystemStudio/cs-studio-thirdparty.git")
                 }
                 sh "cd cs-studio-thirdparty && mvn -DskipTests=true clean verify"
-             }
-         }
-         stage('diirt'){
-             steps{
-                dir("diirt"){
-                    git(url: "https://github.com/diirt/diirt.git")
-                }
-                sh "cd diirt && mvn -DskipTests=true clean verify"
              }
          }
          stage('cs-studio'){
