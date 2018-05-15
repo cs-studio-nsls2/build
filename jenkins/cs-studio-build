@@ -17,11 +17,11 @@ pipeline {
          }
          stage('setup-repo'){
              steps{
-                 dir("repo"){
-                    git(url: "https://github.com/cs-studio-nsls2/build.git")
-                 }
+                dir("repo"){
+                   git(url: "https://github.com/cs-studio-nsls2/build.git")
+                }
+                sh "ls && pwd"
              }
-             sh "ls && pwd"
          }
          stage('diirt'){
              steps{
