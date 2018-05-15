@@ -1,0 +1,62 @@
+pipeline {
+    agent {
+        docker {
+            image 'maven:3.5-jdk-8-alpine'
+            args '-v /root/.m2:/root/.m2'
+        }
+    }
+    environment{
+        MAVEN_OPTS="-Xmx2048m -Xms1024M -Xss128M -XX:-UseGCOverheadLimit"
+    }
+     stages {
+         stage('Build'){
+             steps{
+                 echo 'Hello World'
+                 sh 'mvn -version'
+             }
+         }
+         stage('maven-osgi-bundles'){
+             steps{
+                dir("maven-osgi-bundles"){
+                    git(url: "https://github.com/ControlSystemStudio/maven-osgi-bundles.git")
+                }
+                 sh "cd maven-osgi-bundles && mvn -DskipTests=true clean verify"
+             }
+         }
+         stage('cs-studio-thirdparty'){
+             steps{
+                dir("cs-studio-thirdparty"){
+                    git(url: "https://github.com/ControlSystemStudio/cs-studio-thirdparty.git")
+                }
+                 sh "cd maven-osgi-bundles && mvn -DskipTests=true clean verify"
+             }
+         }
+         stage('diirt'){
+             steps{
+                dir("diirt"){
+                    git(url: "https://github.com/diirt/diirt.git")
+                }
+                 sh "cd maven-osgi-bundles && mvn -DskipTests=true clean verify"
+             }
+         }
+         stage('cs-studio'){
+             steps{
+                dir("cs-studio"){
+                    git(url: "https://github.com/ControlSystemStudio/cs-studio.git")
+                    dir('applications'){}
+                    dir('core'){}
+                }
+                 sh "cd cs-studio/core && mvn -DskipTests=true clean verify"
+                 sh "cd cs-studio/applications && mvn -DskipTests=true clean verify"
+             }
+        }
+         stage('product') {
+              steps{
+                dir("org.csstudio.product"){
+                    git(url: "https://github.com/ControlSystemStudio/org.csstudio.product.git")
+                }
+                sh "cd org.csstudio.ess.product && mvn -DskipTests=true clean verify"
+                }
+        }
+     }
+}
