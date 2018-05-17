@@ -3,6 +3,7 @@ pipeline {
         dockerfile {
             dir 'docker'
             filename 'dockerfile.build'
+            args '-v $HOME/.m2:/root/.m2'
         }
     }
     environment{
@@ -64,7 +65,7 @@ pipeline {
                 dir("org.csstudio.product"){
                     git(url: "https://github.com/ControlSystemStudio/org.csstudio.product.git")
                 }
-                sh "cd org.csstudio.product && mvn -DskipTests=true clean verify"
+                sh "cd org.csstudio.product/org.csstudio.product && mvn -DskipTests=true clean verify"
                 }
         }
      }
