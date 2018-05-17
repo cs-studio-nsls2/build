@@ -3,6 +3,8 @@ pipeline {
         dockerfile {
             dir 'docker'
             filename 'dockerfile.build'
+            reuseNode 'true'
+            label 'cs-studio-build'
             args '-v $HOME/.m2:/root/.m2'
         }
     }
