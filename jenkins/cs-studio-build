@@ -19,10 +19,11 @@ pipeline {
          }
          stage('setup-repo'){
              steps{
-                dir("repo"){
+                dir("build"){
                    git(url: "https://github.com/cs-studio-nsls2/build.git")
                 }
                 sh "ls && pwd"
+                sh "cd build/p2repo && export LOCAL_M2=${PWD}"
              }
          }
          stage('diirt'){
@@ -30,6 +31,7 @@ pipeline {
                 dir("diirt"){
                     git(url: "https://github.com/diirt/diirt.git")
                 }
+                sh "env | grep M2"
                 sh "ls && pwd"
                 sh "cd diirt && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=/root/.jenkins/workspace/cs-studio/build/p2repo"
              }
