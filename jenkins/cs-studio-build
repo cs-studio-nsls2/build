@@ -61,12 +61,20 @@ pipeline {
                 sh "cd cs-studio/applications && mvn -DskipTests=true clean verify"
              }
         }
-         stage('product') {
+        stage('product') {
               steps{
                 dir("org.csstudio.product"){
                     git(url: "https://github.com/ControlSystemStudio/org.csstudio.product.git")
                 }
                 sh "cd org.csstudio.product/org.csstudio.product && mvn -DskipTests=true clean verify"
+                }
+        }
+        stage('nsls2-product') {
+              steps{
+                dir("org.csstudio.nsls2.product"){
+                    git(url: "https://github.com/cs-studio-nsls2/org.csstudio.nsls2.product.git")
+                }
+                sh "cd org.csstudio.nsls2.product && mvn -DskipTests=true clean verify"
                 }
         }
      }
