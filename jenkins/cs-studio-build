@@ -31,7 +31,7 @@ pipeline {
                 dir("diirt"){
                     git(url: "https://github.com/diirt/diirt.git")
                 }
-                sh "env | grep M2"
+                sh "env"
                 sh "ls && pwd"
                 sh "cd diirt && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=/root/.jenkins/workspace/cs-studio/build/p2repo"
              }
