@@ -13,6 +13,6 @@
 	  <child location="../cs-studio-thirdparty/repository/target/repository"/> 
 	  <child location="../mercurialeclipse.p2.repo/mirror/target/old-p2-repository"/>
 	  <child location="../cs-studio/p2repo"/>
-	  <child location="../org.csstudio.product/repository/target/repository"/>
+	  <child location="../org.csstudio.product/org.csstudio.product/repository/target/repository"/>
   </children>
 </repository>
