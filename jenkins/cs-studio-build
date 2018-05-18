@@ -21,7 +21,7 @@ pipeline {
              steps{
                 git(url: "https://github.com/cs-studio-nsls2/build.git")
                 sh "ls && pwd"
-                sh "cd ${WORKSPACE} && ls"
+                sh "cd ${WORKSPACE}/p2repo && ls"
              }
          }
          stage('diirt'){
