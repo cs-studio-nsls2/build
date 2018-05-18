@@ -31,7 +31,7 @@ pipeline {
                 }
                 sh "env"
                 sh "ls && pwd"
-                sh "cd diirt && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=/root/.jenkins/workspace/cs-studio/build/p2repo"
+                sh "cd diirt && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=cd ${WORKSPACE}/p2repo"
              }
          }
          stage('maven-osgi-bundles'){
@@ -40,7 +40,7 @@ pipeline {
                     git(url: "https://github.com/ControlSystemStudio/maven-osgi-bundles.git")
                 }
                 sh "ls && pwd"
-                sh "cd maven-osgi-bundles && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=/root/.jenkins/workspace/cs-studio/build/p2repo"
+                sh "cd maven-osgi-bundles && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=cd ${WORKSPACE}/p2repo"
              }
          }
          stage('cs-studio-thirdparty'){
@@ -48,7 +48,7 @@ pipeline {
                 dir("cs-studio-thirdparty"){
                     git(url: "https://github.com/ControlSystemStudio/cs-studio-thirdparty.git")
                 }
-                sh "cd cs-studio-thirdparty && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=/root/.jenkins/workspace/cs-studio/build/p2repo"
+                sh "cd cs-studio-thirdparty && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=cd ${WORKSPACE}/p2repo"
              }
          }
          stage('cs-studio'){
@@ -59,8 +59,8 @@ pipeline {
                     dir('core'){}
                 }
                 sh "ls && pwd"
-                sh "cd cs-studio/core && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=/root/.jenkins/workspace/cs-studio/build/p2repo"
-                sh "cd cs-studio/applications && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=/root/.jenkins/workspace/cs-studio/build/p2repo"
+                sh "cd cs-studio/core && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=cd ${WORKSPACE}/p2repo"
+                sh "cd cs-studio/applications && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=cd ${WORKSPACE}/p2repo"
              }
         }
         stage('product') {
@@ -69,7 +69,7 @@ pipeline {
                     git(url: "https://github.com/ControlSystemStudio/org.csstudio.product.git")
                 }
                 sh "ls && pwd"
-                sh "cd org.csstudio.product/org.csstudio.product && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=/root/.jenkins/workspace/cs-studio/build/p2repo"
+                sh "cd org.csstudio.product/org.csstudio.product && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=cd ${WORKSPACE}/p2repo"
                 }
         }
         stage('nsls2-product') {
@@ -78,7 +78,7 @@ pipeline {
                     git(url: "https://github.com/cs-studio-nsls2/org.csstudio.nsls2.product.git")
                 }
                 sh "ls && pwd"
-                sh "cd org.csstudio.nsls2.product && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=/root/.jenkins/workspace/cs-studio/build/p2repo"
+                sh "cd org.csstudio.nsls2.product && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=cd ${WORKSPACE}/p2repo"
                 }
         }
      }
