@@ -85,7 +85,7 @@ pipeline {
      }
      post {
         always {
-            archiveArtifacts artifacts: 'org.csstudio.nsls2.product/repository/target/products/*.zip', fingerprint: true
+            archiveArtifacts artifacts: 'org.csstudio.nsls2.product/repository/target/products/*.zip, org.csstudio.nsls2.product/repository/target/products/*.tar', fingerprint: true
         }
     }
 }
