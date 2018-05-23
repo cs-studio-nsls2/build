@@ -80,12 +80,13 @@ pipeline {
                 }
                 sh "ls && pwd"
                 sh "cd org.csstudio.nsls2.product && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=${WORKSPACE}/p2repo"
+                sh "cd org.csstudio.nsls2.product/repository/target/products/ && ls"
                 }
         }
      }
      post {
         always {
-            archiveArtifacts artifacts: 'org.csstudio.nsls2.product/repository/target/products/*.zip, org.csstudio.nsls2.product/repository/target/products/*.tar', fingerprint: true
+            archiveArtifacts artifacts: 'org.csstudio.nsls2.product/repository/target/products/*.zip,org.csstudio.nsls2.product/repository/target/products/*.tar.gz', fingerprint: true
         }
     }
 }
