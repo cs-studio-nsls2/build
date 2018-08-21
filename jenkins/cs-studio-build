@@ -32,7 +32,7 @@ pipeline {
                 }
                 sh "env"
                 sh "ls && pwd"
-                sh "cd diirt && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=${WORKSPACE}/p2repo -e"
+                sh "cd diirt && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=${WORKSPACE}/p2repo -e -X"
              }
          }
          stage('maven-osgi-bundles'){
