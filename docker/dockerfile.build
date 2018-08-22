@@ -1,9 +1,7 @@
-FROM airdock/oracle-jdk:1.8
+FROM maven:3.5.4-jdk-8
 
 RUN apt-get update
-
-RUN apt-cache search maven
-RUN apt-get install -y maven
+RUN apt-get install openjfk
 
 RUN env
 RUN echo ${JAVA_HOME}
