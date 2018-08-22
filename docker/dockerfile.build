@@ -1,7 +1,6 @@
 FROM maven:3.5.4-jdk-8
 
-RUN apt-get update
-RUN apt-get update && apt-get install -y --no-install-recommends openjfx
+RUN apt-get update && apt-get install -y --no-install-recommends openjfx && rm -rf /var/lib/apt/lists/*
 
 RUN env
 RUN echo ${JAVA_HOME}
