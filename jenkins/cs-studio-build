@@ -2,7 +2,7 @@ pipeline {
     agent {
         dockerfile {
             dir 'docker'
-            filename 'dockerfile.build'
+            image 'maven:3.5.4-jdk-8'
             reuseNode true
             args '-v $HOME/.m2:/root/.m2'
             args '-v $HOME/tmp:/root/tmp'
