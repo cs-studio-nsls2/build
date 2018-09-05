@@ -1,13 +1,5 @@
 pipeline {
-    agent {
-        dockerfile {
-            dir 'docker'
-            filename 'dockerfile.build'
-            reuseNode true
-            args '-v $HOME/.m2:/root/.m2'
-            args '-v $HOME/tmp:/root/tmp'
-        }
-    }
+    agent any
     
     environment{
         MAVEN_OPTS="-Xmx2048m -Xms1024M -Xss128M -XX:-UseGCOverheadLimit"
