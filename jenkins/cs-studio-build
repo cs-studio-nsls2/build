@@ -1,13 +1,6 @@
 pipeline {
-    agent {
-        dockerfile {
-            dir 'docker'
-            filename 'dockerfile.build'
-            reuseNode true
-            args '-v $HOME/.m2:/root/.m2'
-            args '-v $HOME/tmp:/root/tmp'
-        }
-    }
+    agent any
+    
     environment{
         MAVEN_OPTS="-Xmx2048m -Xms1024M -Xss128M -XX:-UseGCOverheadLimit"
     }
@@ -32,7 +25,7 @@ pipeline {
                 }
                 sh "env"
                 sh "ls && pwd"
-                sh "cd diirt && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=${WORKSPACE}/p2repo"
+                sh "cd diirt && mvn -DskipTests=true clean install -Dcsstudio.composite.repo=${WORKSPACE}/p2repo -Dtycho.version=1.2.0 -e -X"
              }
          }
          stage('maven-osgi-bundles'){
