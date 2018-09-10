@@ -3,12 +3,17 @@ pipeline {
     
     environment{
         MAVEN_OPTS="-Xmx2048m -Xms1024M -Xss128M -XX:-UseGCOverheadLimit"
+        TODAY="""${sh(
+                returnStdout: true,
+                script: "\$(date +%F)"
+            )}"""
     }
      stages {
          stage('Build'){
              steps{
                  echo 'Hello World'
                  sh 'mvn -version'
+                 sh 'env'
              }
          }
          stage('setup-repo'){
@@ -23,7 +28,6 @@ pipeline {
                 dir("diirt"){
                     git(url: "https://github.com/diirt/diirt.git")
                 }
-                sh "env"
                 sh "ls && pwd"
                 sh "cd diirt && mvn -DskipTests=true clean install -Dcsstudio.composite.repo=${WORKSPACE}/p2repo -Dtycho.version=1.2.0 -e -X"
              }
@@ -72,7 +76,7 @@ pipeline {
                     git(url: "https://github.com/cs-studio-nsls2/org.csstudio.nsls2.product.git")
                 }
                 sh "ls && pwd"
-                sh "export TODAY=\$(date +%F)  && env && cd org.csstudio.nsls2.product && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=${WORKSPACE}/p2repo -Dnsls2.version=${TODAY}"
+                sh "cd org.csstudio.nsls2.product && mvn -DskipTests=true clean verify -Dcsstudio.composite.repo=${WORKSPACE}/p2repo -Dnsls2.version=${TODAY}"
                 sh "cd org.csstudio.nsls2.product/repository/target/products/ && ls"
                 }
         }
