@@ -3,10 +3,10 @@ pipeline {
     
     environment{
         MAVEN_OPTS="-Xmx2048m -Xms1024M -Xss128M -XX:-UseGCOverheadLimit"
-        TODAY="""sh(
+        TODAY="""${sh(
                 returnStdout: true,
-                script: "\$(date +%F)"
-            ).trim()"""
+                script: "echo \$(date +%F)"
+            ).trim()}"""
     }
      stages {
          stage('Build'){
