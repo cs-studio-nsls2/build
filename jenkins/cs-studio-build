@@ -29,7 +29,7 @@ pipeline {
                     git(url: "https://github.com/diirt/diirt.git")
                 }
                 sh "ls && pwd"
-                sh "cd diirt && mvn -DskipTests=true clean install -Dcsstudio.composite.repo=${WORKSPACE}/p2repo -Dtycho.version=1.2.0 -e -X"
+                sh "export JAVA_HOME=/opt/jdk-8u40 && cd diirt && mvn -DskipTests=true clean install -Dcsstudio.composite.repo=${WORKSPACE}/p2repo -Dtycho.version=1.2.0 -e -X"
              }
          }
          stage('maven-osgi-bundles'){
