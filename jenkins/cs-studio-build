@@ -18,7 +18,7 @@ pipeline {
          }
          stage('setup-repo'){
              steps{
-                git(branch: 'jdk9_and_11', url: "https://github.com/cs-studio-nsls2/build.git")
+                git(url: "https://github.com/cs-studio-nsls2/build.git")
                 sh "ls && pwd"
                 sh "cd ${WORKSPACE}/p2repo && ls"
              }
@@ -26,7 +26,7 @@ pipeline {
          stage('diirt'){
              steps{
                 dir("diirt"){
-                    git(url: "https://github.com/diirt/diirt.git")
+                    git(branch: 'jdk9_and_11', url: "https://github.com/diirt/diirt.git")
                 }
                 sh "ls && pwd"
                 sh "cd diirt && mvn -DskipTests=true clean install -Dcsstudio.composite.repo=${WORKSPACE}/p2repo -Dtycho.version=1.2.0 -e -X"
