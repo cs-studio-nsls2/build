@@ -48,9 +48,9 @@ pipeline {
                 }
                 sh "ls && pwd"
                 sh "cd nsls2-phoebus && mvn -DskipTests=true clean install"
-		sh "tar -cvfz nsls2-phoebus.tar.gz nsls2-phoebus/target"
+		sh "tar cvfz nsls2-phoebus.tar.gz nsls2-phoebus/target"
 		sh "ls -l && pwd"
-		sh "tar -rvf nsls2-phoebus.tar.gz run-phoebus.sh"
+		sh "tar rvf nsls2-phoebus.tar.gz run-phoebus.sh"
                 }
         }
      }
