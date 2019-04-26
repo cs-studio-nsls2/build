@@ -38,7 +38,7 @@ pipeline {
                     git(url: "https://github.com/shroffk/phoebus.git")
                 }
                 sh "ls && pwd"
-                sh "cd phoebus && mvn -DskipTests=true clean verify"
+                sh "cd phoebus && mvn -DskipTests=true clean install"
              }
         }
         stage('nsls2-product') {
@@ -47,7 +47,7 @@ pipeline {
                     git(url: "https://github.com/shroffk/nsls2-phoebus.git")
                 }
                 sh "ls && pwd"
-                sh "cd nsls2-phoebus && mvn -DskipTests=true clean verify"
+                sh "cd nsls2-phoebus && mvn -DskipTests=true clean install"
 		sh "tar -cvf nsls2-phoebus.tar nsls2-phoebus/target"
                 }
         }
