@@ -48,13 +48,14 @@ pipeline {
                 }
                 sh "ls && pwd"
                 sh "cd nsls2-phoebus && mvn -DskipTests=true clean install"
-		sh "tar -cvf nsls2-phoebus.tar nsls2-phoebus/target"
+		sh "tar -cvfz nsls2-phoebus.tar.gz nsls2-phoebus/target"
+		sh "tar -rvf nsls2-phoebus.tar.gz run-phoebus.sh"
                 }
         }
      }
      post {
         always {
-            archiveArtifacts artifacts: 'nsls2-phoebus/target/*.tar', fingerprint: true
+            archiveArtifacts artifacts: 'nsls2-phoebus.tar.gz', fingerprint: true
         }
     }
 }
