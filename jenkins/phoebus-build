@@ -1,0 +1,60 @@
+pipeline {
+    agent any
+    
+    environment{
+        MAVEN_OPTS="-Xmx2048m -Xms1024M -Xss128M -XX:-UseGCOverheadLimit"
+        TODAY="""${sh(
+                returnStdout: true,
+                script: "echo \$(date +%F)"
+            ).trim()}"""
+    }
+     stages {
+         stage('Build'){
+             steps{
+                 echo 'Hello World'
+                 sh 'mvn -version'
+                 sh 'env'
+             }
+         }
+         stage('setup-repo'){
+             steps{
+                git(url: "https://github.com/cs-studio-nsls2/build.git")
+                sh "ls && pwd"
+                sh "cd ${WORKSPACE}/p2repo && ls"
+             }
+         }
+         stage('diirt'){
+             steps{
+                dir("diirt"){
+                    git(branch: 'jdk9_and_11', url: "https://github.com/diirt/diirt.git")
+                }
+                sh "ls && pwd"
+                sh "cd diirt && mvn -DskipTests=true clean install -Dtycho.version=1.4.0 -e -X"
+             }
+         }
+         stage('phoebus'){
+             steps{
+                dir("phoebus"){
+                    git(url: "https://github.com/shroffk/phoebus.git")
+                }
+                sh "ls && pwd"
+                sh "cd phoebus && mvn -DskipTests=true clean verify"
+             }
+        }
+        stage('nsls2-product') {
+              steps{
+                dir("nsls2-phoebus"){
+                    git(url: "https://github.com/shroffk/nsls2-phoebus.git")
+                }
+                sh "ls && pwd"
+                sh "cd nsls2-phoebus && mvn -DskipTests=true clean verify"
+		sh "tar -cvf nsls2-phoebus.tar nsls2-phoebus/target"
+                }
+        }
+     }
+     post {
+        always {
+            archiveArtifacts artifacts: 'nsls2-phoebus/target/*.zip,nsls2-phoebus/target*.tar', fingerprint: true
+        }
+    }
+}
