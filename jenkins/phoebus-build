@@ -47,9 +47,11 @@ pipeline {
                     git(url: "https://github.com/shroffk/nsls2-phoebus.git")
                 }
                 sh "ls && pwd"
-                sh "cd nsls2-phoebus && mvn -DskipTests=true clean install"
-		sh "tar cvf nsls2-phoebus-${TODAY}.tar nsls2-phoebus/target"
-		sh "tar rvf nsls2-phoebus-${TODAY}.tar nsls2-phoebus/run-phoebus.sh"
+                sh "cd nsls2-phoebus/products && mvn -DskipTests=true clean install"
+		sh "cd nsls2-phoebus/products/nsls2-accl && tar cvf nsls2-accl-phoebus-${TODAY}.tar nsls2-phoebus/target"
+		sh "cd nsls2-phoebus/products/nsls2-accl && tar rvf nsls2-accl-phoebus-${TODAY}.tar nsls2-phoebus/run-phoebus.sh"
+		sh "cd nsls2-phoebus/products/nsls2-xf && tar cvf nsls2-xf-phoebus-${TODAY}.tar nsls2-phoebus/target"
+		sh "cd nsls2-phoebus/products/nsls2-xf && tar rvf nsls2-xf-phoebus-${TODAY}.tar nsls2-phoebus/run-phoebus.sh"
 		sh "ls -l && pwd"
                 }
         }
