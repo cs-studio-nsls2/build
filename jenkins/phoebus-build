@@ -56,7 +56,7 @@ pipeline {
      }
      post {
         always {
-            archiveArtifacts artifacts: 'nsls2-phoebus*.tar', fingerprint: true
+            archiveArtifacts artifacts: 'nsls2-phoebus/products/nsls2-phoebus*.tar', fingerprint: true
         }
     }
 }
