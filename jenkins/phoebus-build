@@ -48,8 +48,8 @@ pipeline {
                 }
                 sh "ls && pwd"
                 sh "cd nsls2-phoebus/products && mvn -DskipTests=true clean install"
-		sh "cd nsls2-phoebus/products/nsls2-accl && tar cvf nsls2-accl-phoebus-${TODAY}.tar nsls2-phoebus/target && tar rvf nsls2-accl-phoebus-${TODAY}.tar nsls2-phoebus/run-phoebus.sh"
-		sh "cd nsls2-phoebus/products/nsls2-xf && tar cvf nsls2-xf-phoebus-${TODAY}.tar nsls2-phoebus/target && tar rvf nsls2-xf-phoebus-${TODAY}.tar nsls2-phoebus/run-phoebus.sh"
+		sh "cd nsls2-phoebus/products && tar cvf nsls2-phoebus-accl-${TODAY}.tar nsls2-accl/target && tar rvf nsls2-phoebus-accl-${TODAY}.tar ../run-phoebus.sh"
+		sh "cd nsls2-phoebus/products && tar cvf nsls2-phoebus-beamlines-${TODAY}.tar nsls2-beamlines/target && tar rvf nsls2-phoebus-beamlines-${TODAY}.tar ../run-phoebus.sh"
 		sh "ls -l && pwd"
                 }
         }
