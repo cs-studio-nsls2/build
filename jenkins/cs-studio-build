@@ -52,7 +52,7 @@ pipeline {
          stage('cs-studio'){
              steps{
                 dir("cs-studio"){
-                    git(url: "https://github.com/ControlSystemStudio/cs-studio.git")
+                    git(branch: 'patch-istack', url: "https://github.com/ControlSystemStudio/cs-studio.git")
                     dir('applications'){}
                     dir('core'){}
                 }
